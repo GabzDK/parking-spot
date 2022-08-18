@@ -3,6 +3,7 @@ package com.api.parkingcontrol.controllers;
 import com.api.parkingcontrol.dtos.ParkingSpotDto;
 import com.api.parkingcontrol.models.ParkingSpotModel;
 import com.api.parkingcontrol.services.ParkingSpotService;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -41,6 +41,7 @@ public class ParkingSpotController {
         }
         var parkingSpotModel = new ParkingSpotModel();
         BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);
+
         parkingSpotModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
         return ResponseEntity.status(HttpStatus.CREATED).body(parkingSpotService.save(parkingSpotModel));
     }
@@ -77,7 +78,14 @@ public class ParkingSpotController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found.");
         }
         var parkingSpotModel = new ParkingSpotModel();
-        BeanUtils.copyProperties(parkingSpotDto, parkingSpotModel);
+        parkingSpotModel.setApartment(parkingSpotModelOptional.get().getApartment());
+        parkingSpotModel.setBlock(parkingSpotModelOptional.get().getBlock());
+        parkingSpotModel.setBrandCar(parkingSpotModelOptional.get().getBrandCar());
+        parkingSpotModel.setColorCar(parkingSpotModelOptional.get().getColorCar());
+        parkingSpotModel.setLicensePlateCar(parkingSpotModelOptional.get().getLicensePlateCar());
+        parkingSpotModel.setModelCar(parkingSpotModelOptional.get().getModelCar());
+        parkingSpotModel.setParkingSpotNumber(parkingSpotModelOptional.get().getParkingSpotNumber());
+        parkingSpotModel.setResponsibleName(parkingSpotModelOptional.get().getResponsibleName());
         parkingSpotModel.setId(parkingSpotModelOptional.get().getId());
         parkingSpotModel.setRegistrationDate(parkingSpotModelOptional.get().getRegistrationDate());
         return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.save(parkingSpotModel));
