@@ -77,18 +77,17 @@ public class ParkingSpotController {
         if (!parkingSpotModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found.");
         }
-        var parkingSpotModel = new ParkingSpotModel();
-        parkingSpotModel.setApartment(parkingSpotModelOptional.get().getApartment());
-        parkingSpotModel.setBlock(parkingSpotModelOptional.get().getBlock());
-        parkingSpotModel.setBrandCar(parkingSpotModelOptional.get().getBrandCar());
-        parkingSpotModel.setColorCar(parkingSpotModelOptional.get().getColorCar());
-        parkingSpotModel.setLicensePlateCar(parkingSpotModelOptional.get().getLicensePlateCar());
-        parkingSpotModel.setModelCar(parkingSpotModelOptional.get().getModelCar());
-        parkingSpotModel.setParkingSpotNumber(parkingSpotModelOptional.get().getParkingSpotNumber());
-        parkingSpotModel.setResponsibleName(parkingSpotModelOptional.get().getResponsibleName());
-        parkingSpotModel.setId(parkingSpotModelOptional.get().getId());
-        parkingSpotModel.setRegistrationDate(parkingSpotModelOptional.get().getRegistrationDate());
-        return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.save(parkingSpotModel));
+        var parkingSpotModel = parkingSpotDto;
+        var parkingSpotModelGet = parkingSpotModelOptional.get();
+        parkingSpotModelGet.setApartment(parkingSpotModel.getApartment());
+        parkingSpotModelGet.setBlock(parkingSpotModel.getBlock());
+        parkingSpotModelGet.setBrandCar(parkingSpotModel.getBrandCar());
+        parkingSpotModelGet.setColorCar(parkingSpotModel.getColorCar());
+        parkingSpotModelGet.setLicensePlateCar(parkingSpotModel.getLicensePlateCar());
+        parkingSpotModelGet.setModelCar(parkingSpotModel.getModelCar());
+        parkingSpotModelGet.setParkingSpotNumber(parkingSpotModel.getParkingSpotNumber());
+        parkingSpotModelGet.setResponsibleName(parkingSpotModel.getResponsibleName());
+        return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.save(parkingSpotModelGet));
     }
 
 
