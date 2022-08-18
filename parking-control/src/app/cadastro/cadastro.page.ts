@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-cadastro',
@@ -10,13 +11,16 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./cadastro.page.scss'],
 })
 export class CadastroPage implements OnInit {
-  
+
   public form: FormGroup;
+
+  public isLoading = false;
 
   constructor(
     private http: HttpClient,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -54,7 +58,7 @@ export class CadastroPage implements OnInit {
         null,
         Validators.compose([Validators.required, Validators.maxLength(30)])
       ]
-      
+
     })
   }
 
@@ -64,29 +68,32 @@ export class CadastroPage implements OnInit {
     }
   }
 
-  public async salvar(){
+  public async salvar() {
     const url = `${environment.api}/parking-spot`;
     const parkingSpot = this.form.value;
-    this.form.value.id = 2;
-    console.log(parkingSpot)
-    try{
-      if(this.form.valid){
+    this.isLoading = true;
+    try {
+      if (this.form.valid) {
         const form = this.form.getRawValue();
-        if(form.id == 'new')
-        delete form.id;
+        if (form.id == 'new') {
+          delete form.id;
+        }
       }
-      if(parkingSpot.id){
-        await this.http.put(url, parkingSpot).toPromise();
-      }
-      else{
-        await this.http.post(url, parkingSpot).toPromise();
-      }
-    }catch(error){
+      delete parkingSpot.id;
+      await this.http.post(url, parkingSpot).toPromise();
+      const toast = await this.toastController.create({
+        message: 'Salvo com sucesso',
+        position: 'top',
+        duration: 2000
+      });
+      toast.present();
+    } catch (error) {
       console.log(error);
     }
+    this.isLoading = false;
   }
 
-  public httpConnection(connectorId: string){
-    this.http.get(`${environment.api}/cadastro`).subscribe((data) => console.log(data) );
+  public httpConnection(connectorId: string) {
+    this.http.get(`${environment.api}/cadastro`).subscribe((data) => console.log(data));
   }
 }
