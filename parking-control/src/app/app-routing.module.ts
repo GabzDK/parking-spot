@@ -8,6 +8,10 @@ const routes: Routes = [
   },  {
     path: 'atualizar',
     loadChildren: () => import('./atualizar/atualizar.module').then( m => m.AtualizarPageModule)
+  },
+  {
+    path: 'listar',
+    loadChildren: () => import('./listar/listar.module').then( m => m.ListarPageModule)
   }
 
 
