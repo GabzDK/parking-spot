@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-atualizar',
@@ -12,10 +13,13 @@ export class AtualizarPage implements OnInit {
 
   public form: FormGroup;
 
+  public isLoading = false;
+
   constructor(
     private http: HttpClient,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -53,12 +57,23 @@ export class AtualizarPage implements OnInit {
         null,
         Validators.compose([Validators.required, Validators.maxLength(30)])
       ]
-    })
+    });
+    this.form.patchValue(this.activatedRoute.snapshot.data.entity);
   }
   public async update() {
-    this.http.put('http://localhost:8080/parking-control/parking-spots', this.form.value).subscribe(
-      (response) => {
-        console.log(response);
+    const id = this.form.value.id;
+    delete this.form.value.id;
+    this.isLoading = true;
+    this.http.put(`http://localhost:8080/parking-spot/${id}`, this.form.value)
+    .subscribe(
+      async (response) => {
+        this.isLoading = false;
+        const toast = await this.toastController.create({
+          message: 'Salvo com sucesso',
+          position: 'top',
+          duration: 2000
+        });
+        toast.present();
       });
   }
 }

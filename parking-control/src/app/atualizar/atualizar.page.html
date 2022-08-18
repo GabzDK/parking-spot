@@ -1,41 +1,42 @@
 <div class="container col-md-6">
-  <h4 style="color:rgba(255, 0, 0, 0.607)">Parking Lot Update</h4>
-  <form class="row mt-2" [formGroup]="form">
-      <div class="mb-3">
-          <label for="nome" class="form-label">Parking spot number</label>
-          <input type="text" class="form-control" id="parkingSpotNumber" name="parkingSpotNumber"
-              formControlName="parkingSpotNumber">
-      </div>
-      <div class="mb-3">
-          <label for="nome" class="form-label">License Plate</label>
-          <input type="text" class="form-control" id="licensePlateCar" name="licensePlateCar"
-              formControlName="licensePlateCar">
-      </div>
-      <div class="mb-3">
-          <label for="nome" class="form-label">Car Brand</label>
-          <input type="text" class="form-control" id="brandCar" name="brandCar" formControlName="brandCar">
-      </div>
-      <div class="mb-3">
-          <label for="nome" class="form-label">Car model</label>
-          <input type="text" class="form-control" id="modelCar" name="modelCar" formControlName="modelCar">
-      </div>
-      <div class="mb-3">
-          <label for="nome" class="form-label">Car color</label>
-          <input type="text" class="form-control" id="colorCar" name="colorCar" formControlName="colorCar">
-      </div>
-      <div class="mb-3">
-          <label for="nome" class="form-label">Responsible name</label>
-          <input type="text" class="form-control" id="responsibleName" name="responsibleName"
-              formControlName="responsibleName">
-      </div>
-      <div class="mb-3">
-          <label for="nome" class="form-label">Apartment</label>
-          <input type="text" class="form-control" id="apartment" name="apartment" formControlName="apartment">
-      </div>
-      <div class="mb-3">
-          <label for="nome" class="form-label">Block</label>
-          <input type="text" class="form-control" id="block" name="block" formControlName="block">
-      </div>
-      <ion-button (click)="update()">{{(!form.get('id').value ? 'Cadastrar' : 'Atualizar')}}</ion-button>
-  </form>
+    <h4 style="color:rgba(255, 0, 0, 0.607)">Parking Lot Update</h4>
+    <form class="row mt-2" [formGroup]="form">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Parking spot number</label>
+            <input type="text" class="form-control" id="parkingSpotNumber" name="parkingSpotNumber"
+                formControlName="parkingSpotNumber">
+        </div>
+        <div class="mb-3">
+            <label for="nome" class="form-label">License Plate</label>
+            <input type="text" class="form-control" id="licensePlateCar" name="licensePlateCar"
+                formControlName="licensePlateCar">
+        </div>
+        <div class="mb-3">
+            <label for="nome" class="form-label">Car Brand</label>
+            <input type="text" class="form-control" id="brandCar" name="brandCar" formControlName="brandCar">
+        </div>
+        <div class="mb-3">
+            <label for="nome" class="form-label">Car model</label>
+            <input type="text" class="form-control" id="modelCar" name="modelCar" formControlName="modelCar">
+        </div>
+        <div class="mb-3">
+            <label for="nome" class="form-label">Car color</label>
+            <input type="text" class="form-control" id="colorCar" name="colorCar" formControlName="colorCar">
+        </div>
+        <div class="mb-3">
+            <label for="nome" class="form-label">Responsible name</label>
+            <input type="text" class="form-control" id="responsibleName" name="responsibleName"
+                formControlName="responsibleName">
+        </div>
+        <div class="mb-3">
+            <label for="nome" class="form-label">Apartment</label>
+            <input type="text" class="form-control" id="apartment" name="apartment" formControlName="apartment">
+        </div>
+        <div class="mb-3">
+            <label for="nome" class="form-label">Block</label>
+            <input type="text" class="form-control" id="block" name="block" formControlName="block">
+        </div>
+        <ion-button (click)="update()" [disabled]="isLoading">{{(isLoading ? 'Aguarde...' : 'Atualizar')}}
+        </ion-button>
+    </form>
 </div>

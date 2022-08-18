@@ -36,6 +36,6 @@
             <label for="nome" class="form-label">Block</label>
             <input type="text" class="form-control" id="block" name="block" formControlName="block">
         </div>
-        <ion-button (click)="salvar()">{{(!form.get('id').value ? 'Cadastrar' : 'Atualizar')}}</ion-button>
+        <ion-button (click)="salvar()" [disabled]="isLoading">{{(isLoading ? 'Aguarde...' : 'Cadastrar')}}</ion-button>
     </form>
 </div>
