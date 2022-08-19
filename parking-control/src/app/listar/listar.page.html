@@ -1,1 +1,45 @@
-<ion-button (click)="listar()">clica</ion-button>
+<div *ngIf="(parkingSpot$ | async) as root">
+    <table class="table" *ngFor="let park of root.content">
+        <thead>
+            <tr>
+                <th scope="col">Parking Spot Number : {{park.parkingSpotNumber}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">ID: {{park.id}}</th>
+            </tr>
+            <tr>
+                <th scope="row">Car license plate: {{park.licensePlateCar}}</th>
+            </tr>
+            <tr>
+                <th scope="row">Car brand: {{park.brandCar}}</th>
+            </tr>
+            <tr>
+                <th scope="row">Car model: {{park.modelCar}}</th>
+            </tr>
+            <tr>
+                <th scope="row">Car color: {{park.colorCar}}</th>
+            </tr>
+            <tr>
+                <th scope="row">Responsible name: {{park.responsibleName}}</th>
+            </tr>
+            <tr>
+                <th scope="row">Apartment: {{park.apartment}}</th>
+            </tr>
+            <tr>
+                <th scope="row">Block: {{park.block}}</th>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <button type="button" class="btn btn-primary">Edit</button>
+                </th>
+            </tr>
+            <tr>
+                <th scope="row">
+                    <button type="button" class="btn btn-danger" onclick="delete(parkingSpot$)">Delete</button>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>

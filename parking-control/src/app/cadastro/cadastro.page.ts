@@ -80,7 +80,7 @@ export class CadastroPage implements OnInit {
         }
       }
       delete parkingSpot.id;
-      await this.http.post(url, parkingSpot).toPromise();
+      await this.http.post(url, parkingSpot,{headers:{["Content-Type"]:"application/json"}}).toPromise();
       const toast = await this.toastController.create({
         message: 'Salvo com sucesso',
         position: 'top',

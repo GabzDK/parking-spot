@@ -61,10 +61,10 @@ export class AtualizarPage implements OnInit {
     this.form.patchValue(this.activatedRoute.snapshot.data.entity);
   }
   public async update() {
-    const id = this.form.value.id;
-    delete this.form.value.id;
+    const licensePlateCar = this.form.value.licensePlateCar;
+    delete this.form.value.licensePlateCar;
     this.isLoading = true;
-    this.http.put(`http://localhost:8080/parking-spot/${id}`, this.form.value)
+    this.http.put(`http://localhost:8080/parking-spot/${licensePlateCar}`, this.form.value)
     .subscribe(
       async (response) => {
         this.isLoading = false;
